@@ -1,4 +1,4 @@
-// --- 50 Questions Data ---
+// --- 60 Questions Data ---
 const ALL_QUESTIONS = [
     {
         question: "1. What is Curriculum Delivery described as, according to the materials?",
@@ -249,17 +249,67 @@ const ALL_QUESTIONS = [
         question: "50. The Teaching and Learning stage of delivery is characterized by the use of:",
         options: ["Budget planning.", "Diverse methods, including lectures, demonstrations, and field trips.", "Curriculum document analysis.", "Policy formulation."],
         answer: "Diverse methods, including lectures, demonstrations, and field trips."
+    },
+    // --- NEW QUESTIONS START HERE (51-60) ---
+    {
+        question: "51. Curriculum delivery is often metaphorically referred to as the **lifeblood** of the curriculum because it is responsible for:",
+        options: ["Writing all new curriculum documents.", "Ensuring administrative funding is allocated.", "Bringing the written curriculum to actualization and ensuring learning occurs.", "Managing teacher employment contracts."],
+        answer: "Bringing the written curriculum to actualization and ensuring learning occurs."
+    },
+    {
+        question: "52. In the context of instructional preparation, what activity is explicitly mentioned as being done through **faculty coordination**?",
+        options: ["Assessing student final projects.", "Organizing materials, creating timetables, and designing engaging activities.", "Collecting stakeholder feedback for evaluation.", "Conducting departmental meetings."],
+        answer: "Organizing materials, creating timetables, and designing engaging activities."
+    },
+    {
+        question: "53. Which teaching approach is best described as an effective method for **introducing a new topic** or **providing context** efficiently to a large audience?",
+        options: ["Class Discussion", "Lecture", "Project-Based Learning", "Guided-Discovery"],
+        answer: "Lecture"
+    },
+    {
+        question: "54. The effectiveness of Class Discussion as a method heavily relies on the teacher ensuring the presence of a:",
+        options: ["Strictly competitive atmosphere.", "Passive learning environment.", "Safe classroom environment.", "One-way communication channel."],
+        answer: "Safe classroom environment."
+    },
+    {
+        question: "55. Which component of Teacher Support Systems provides teachers with access to databases like DELNET and INFLIBNET?",
+        options: ["Teaching Aids Access", "Faculty Development Programs", "Professional Guidance", "Digital Resources Access"],
+        answer: "Digital Resources Access"
+    },
+    {
+        question: "56. The CTCA (Culturally-Responsive Teaching) approach requires the teacher to be a creative lesson designer and a keen observer of which student aspect?",
+        options: ["Student seating arrangements.", "Student culture", "Student test scores.", "Student height and weight."],
+        answer: "Student culture"
+    },
+    {
+        question: "57. Which teaching strategy focuses specifically on **Dialogue & Perspective**?",
+        options: ["Demonstration", "Lecture", "Discussion", "Metacognition"],
+        answer: "Discussion"
+    },
+    {
+        question: "58. Professional guidance in curriculum delivery often happens through:",
+        options: ["End-of-term Summative Assessments.", "Departmental meetings.", "Individual student counseling sessions.", "Writing new National Policy on Education documents."],
+        answer: "Departmental meetings."
+    },
+    {
+        question: "59. Curriculum delivery includes managing classroom interaction, which occurs during which primary stage?",
+        options: ["Curriculum Interpretation", "Assessment", "Teaching and Learning", "Feedback Systems"],
+        answer: "Teaching and Learning"
+    },
+    {
+        question: "60. In the **Concept Mapping** method, the student's role is described as the:",
+        options: ["Passive Listener", "Demonstrator", "Organizer, Connector", "Problem-Poser, Coach"],
+        answer: "Organizer, Connector"
     }
+    // --- NEW QUESTIONS END HERE ---
 ];
-// --- End of 50 Questions Data ---
+// --- End of 60 Questions Data ---
 
-
-// ... [The large ALL_QUESTIONS array of 50 objects goes here] ... 
 
 // Global state variables
 let currentQuiz = []; 
 let totalQuestionsCount = 0; 
-let userAnswers = []; // NEW: Array to store user selections for review
+let userAnswers = []; 
 
 // DOM element references
 const configSection = document.getElementById('config-section');
@@ -272,13 +322,14 @@ const countOptionsEl = document.getElementById('question-count-options');
 const startBtn = document.getElementById('start-btn');
 const submitBtn = document.getElementById('submit-btn');
 const restartBtn = document.getElementById('restart-btn');
-const answerKeyEl = document.getElementById('answer-key'); // NEW: Reference to the answer key container
+const answerKeyEl = document.getElementById('answer-key'); 
 
-const QUESTION_COUNTS = [10, 20, 30, 40, 50];
+// UPDATED: Now includes 60 as the maximum option
+const QUESTION_COUNTS = [10, 20, 30, 40, 50, 60];
 
 
 /**
- * Renders the initial configuration screen with question count options. (UNCHANGED)
+ * Renders the initial configuration screen with question count options.
  */
 function renderConfig() {
     configSection.classList.remove('hidden');
@@ -288,6 +339,7 @@ function renderConfig() {
 
     countOptionsEl.innerHTML = '';
     
+    // Create radio buttons for question count selection
     QUESTION_COUNTS.forEach(count => {
         const optionLabel = document.createElement('label');
         optionLabel.classList.add('answer-option');
@@ -307,7 +359,7 @@ function renderConfig() {
 }
 
 /**
- * Utility function to shuffle an array (Fisher-Yates algorithm). (UNCHANGED)
+ * Utility function to shuffle an array (Fisher-Yates algorithm).
  */
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -318,7 +370,8 @@ function shuffleArray(array) {
 }
 
 /**
- * Initializes the quiz by selecting questions and rendering them. (SLIGHTLY MODIFIED)
+ * Initializes the quiz by selecting questions and rendering them.
+ * @param {number} count - The number of questions to select (10, 20, 30, 40, 50, or 60).
  */
 function startQuiz(count) {
     if (count === 0) {
@@ -380,7 +433,7 @@ function startQuiz(count) {
 }
 
 /**
- * Generates the review section showing correct answers. (NEW FUNCTION)
+ * Generates the review section showing correct answers.
  */
 function displayAnswerKey(answers) {
     answerKeyEl.innerHTML = '<h3>Review Your Answers:</h3>';
@@ -415,12 +468,12 @@ function displayAnswerKey(answers) {
 
 
 /**
- * Checks all answers simultaneously when the Submit button is clicked. (MODIFIED)
+ * Checks all answers simultaneously when the Submit button is clicked.
  */
 function submitQuiz() {
     let score = 0;
     let unansweredCount = 0;
-    userAnswers = []; // Clear and rebuild answers array
+    userAnswers = []; 
 
     currentQuiz.forEach((q, qIndex) => {
         const questionName = `question-${qIndex}`;
@@ -455,13 +508,13 @@ function submitQuiz() {
     resultsSection.classList.remove('hidden');
     scoreText.textContent = `Your final score: ${score} out of ${totalQuestionsCount}`;
     
-    // Call new function to display answers
+    // Call function to display answers
     displayAnswerKey(userAnswers);
 }
 
-// Event listeners (MODIFIED RESTART)
+// Event listeners 
 submitBtn.addEventListener('click', submitQuiz);
-restartBtn.addEventListener('click', renderConfig); // Restart goes back to config screen
+restartBtn.addEventListener('click', renderConfig); 
 
 startBtn.addEventListener('click', () => {
     const selectedInput = document.querySelector('input[name="question-count"]:checked');
