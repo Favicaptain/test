@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curriculum Delivery Quiz (50 Questions)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>Curriculum Delivery Processes Quiz 📘</h1>
+        
+        <div id="config-section">
+            <p>Welcome! Please select how many questions you would like to attempt:</p>
+            <div id="question-count-options" class="answer-options">
+                </div>
+            <button id="start-btn" class="btn primary-btn">Start Quiz</button>
+        </div>
+
+        <div id="quiz" class="hidden">
+            <p id="question-info"></p>
+            <div id="questions-container">
+                </div>
+
+            <button id="submit-btn" class="btn success-btn">Submit Quiz</button>
+        </div>
+
+        <div id="results" class="results-section hidden">
+            <h2>Quiz Finished! 🎉</h2>
+            <p id="score-text" class="final-score">Your final score: 0 out of 0</p>
+            
+            <div id="answer-key">
+                <h3>Review Your Answers:</h3>
+                </div>
+
+            <button id="restart-btn" class="btn primary-btn">Restart Quiz</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
